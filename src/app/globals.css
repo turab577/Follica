@@ -1,0 +1,256 @@
+@import "tailwindcss";
+
+/*
+ * Follica design system — warm herbal.
+ * Cream paper, deep olive, amber accents. All colors in oklch.
+ */
+
+@theme inline {
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-karla), ui-sans-serif, system-ui, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-border: var(--border);
+}
+
+:root {
+  --radius: 0.25rem;
+  --background: oklch(0.966 0.014 92.5);
+  --foreground: oklch(0.21 0.012 80);
+  --card: oklch(0.985 0.008 92.5);
+  --primary: oklch(0.338 0.041 149.5);
+  --primary-hover: oklch(0.29 0.04 149.5);
+  --primary-foreground: oklch(0.976 0.014 92.5);
+  --secondary: oklch(0.928 0.021 92);
+  --muted-foreground: oklch(0.47 0.018 86);
+  --accent: oklch(0.672 0.111 66.5);
+  --border: oklch(0.885 0.018 90);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    color: var(--color-primary);
+  }
+}
+
+/* ---- Navigation --------------------------------------------------------- */
+
+.site-header-bar > nav {
+  margin-left: auto;
+}
+
+.nav-panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1.25rem;
+}
+
+.menu-toggle {
+  display: none;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--color-primary);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 767px) {
+  .site-header-bar > nav {
+    order: 3;
+    width: 100%;
+  }
+  .site-header-bar > .btn-solid {
+    margin-left: auto;
+  }
+  .nav-panel {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding-top: 0.75rem;
+  }
+  /* Without JS the links simply stay listed; with JS they sit behind the Menu button. */
+  .js .menu-toggle {
+    display: inline-flex;
+  }
+  .js .nav-panel:not(.nav-panel-open) {
+    display: none;
+  }
+}
+
+/* ---- FAQ ---------------------------------------------------------------- */
+
+.faq-row summary::-webkit-details-marker {
+  display: none;
+}
+.faq-icon {
+  transition: transform 200ms ease;
+}
+.faq-row[open] .faq-icon {
+  transform: rotate(45deg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+@utility eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-muted-foreground);
+}
+
+@utility btn-solid {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--color-primary);
+  color: var(--color-primary-foreground);
+  padding: 0.85rem 1.6rem;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  transition: background 150ms ease;
+
+  &:hover {
+    background: var(--primary-hover);
+  }
+}
+
+@utility btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  padding: 0.85rem 1.6rem;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  transition: background 150ms ease;
+
+  &:hover {
+    background: var(--color-secondary);
+  }
+}
+
+@utility link {
+  font-size: 0.875rem;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+
+  &:hover {
+    color: var(--color-primary);
+  }
+}
+
+@utility prose-body {
+  color: var(--color-foreground);
+  line-height: 1.75;
+
+  & p {
+    margin-bottom: 1.1rem;
+  }
+
+  & h2 {
+    font-size: 1.6rem;
+    margin-top: 2.4rem;
+    margin-bottom: 0.8rem;
+  }
+
+  & h3 {
+    font-size: 1.2rem;
+    margin-top: 1.8rem;
+    margin-bottom: 0.6rem;
+  }
+
+  & ul {
+    list-style: disc;
+    padding-left: 1.3rem;
+    margin-bottom: 1.1rem;
+  }
+
+  & ol {
+    list-style: decimal;
+    padding-left: 1.3rem;
+    margin-bottom: 1.1rem;
+  }
+
+  & li {
+    margin-bottom: 0.4rem;
+  }
+
+  & a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  & .table-wrap {
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid var(--color-border);
+  }
+
+  & table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  & th {
+    background: var(--color-secondary);
+    color: var(--color-primary);
+    font-weight: 600;
+    text-align: left;
+  }
+
+  & th,
+  & td {
+    padding: 0.7rem 0.9rem;
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: top;
+  }
+
+  & tbody tr:last-child td {
+    border-bottom: 0;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
